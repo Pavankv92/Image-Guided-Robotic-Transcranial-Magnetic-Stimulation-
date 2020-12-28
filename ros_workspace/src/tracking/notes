@@ -1,0 +1,4 @@
+increase threshold for failed attempts
+otherwise keep low
+
+Only send position updates for single var if changnged over  .5 millimeters

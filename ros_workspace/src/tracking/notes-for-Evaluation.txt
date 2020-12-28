@@ -1,0 +1,2 @@
+noise Level when not moving
+Parameter differences regarding threresholds and computation times 

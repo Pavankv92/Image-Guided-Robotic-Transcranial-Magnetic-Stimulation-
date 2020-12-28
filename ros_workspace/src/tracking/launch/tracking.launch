@@ -1,0 +1,12 @@
+<launch>
+    <param name="kinect2_bridge/fps_limit" value="10.0"/>
+    <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch" />
+
+    <param name="pcl_threshold_x_min" value="-0.2" />
+    <param name="pcl_threshold_x_max" value="0.4" />
+    <param name="pcl_threshold_y_min" value="-0.4" />
+    <param name="pcl_threshold_y_max" value="0.5" />
+    <param name="pcl_threshold_z_min" value="0.5" />
+    <param name="pcl_threshold_z_max" value="1.6" />
+    <node pkg="tracking" name="tracking_server" type="tracking_server.py" output="screen"/>
+</launch>

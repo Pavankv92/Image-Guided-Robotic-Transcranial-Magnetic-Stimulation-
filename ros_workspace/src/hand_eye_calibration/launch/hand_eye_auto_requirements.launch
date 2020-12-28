@@ -1,0 +1,11 @@
+<launch>
+    <param name="kinect2_bridge/fps_limit" value="10.0"/>
+    <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch" />
+
+    <include file="$(find ur_modern_driver)/launch/ur3_bringup.launch">
+        <arg name="robot_ip" value="134.28.45.59"/>
+    </include>
+
+    <node pkg="forward_kinematics" name="inverse_server" type="inverse_server.py" output="screen" />
+    <node pkg="forward_kinematics" name="call_inverse_and_move" type="call_inverse_and_move.py" output="screen" />
+</launch>

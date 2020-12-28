@@ -1,0 +1,45 @@
+<launch>
+  <arg name="command_args" default="" />
+  <arg name="bag_record" default="true" />
+  <arg name="ask_first" default="true" />
+  <arg name="use_ctrl_master" default="false" />
+  <arg name="ip_ctrl_master" default="134.28.45.36" />
+  <arg name="port_ctrl_master" default="2525" />
+  <arg name="num_cases" default="1" />
+  <arg name="speed_scale" default="1.5" />
+  <arg name="ang6_offset_deg" default="30" />
+  <arg name="trksrv_ip"  default="134.28.45.36" />
+  <arg name="trksrv_port"  default="5000" />
+  <arg name="geometry_name_coil" default="styluswhite" />
+  <arg name="geometry_name_head" default="headband" />
+
+  <!-- Start the tracking_clients -->  
+  <node name="tracking_luebeck_node_coil" pkg="tracking_luebeck_node" type="tracking_luebeck_node" respawn="false" output="screen" args="$(arg command_args)">
+      <param name="trksrv_ip" type="str" value="$(arg trksrv_ip)"/>
+      <param name="trksrv_port" type="int" value="$(arg trksrv_port)"/>
+      <param name="geometry_name" type="str" value="$(arg geometry_name_coil)"/>
+  </node>
+    
+  <node name="tracking_luebeck_node_head" pkg="tracking_luebeck_node" type="tracking_luebeck_node" respawn="false" output="screen" args="$(arg command_args)">
+      <param name="trksrv_ip" type="str" value="$(arg trksrv_ip)"/>
+      <param name="trksrv_port" type="int" value="$(arg trksrv_port)"/>
+      <param name="geometry_name" type="str" value="$(arg geometry_name_head)"/>
+  </node>
+
+  <node pkg="rosbag" type="record" name="rosbag_record_cam"
+       args="-o /data/ --lz4 /trk_rt_tf /ur_rt_tf"
+       if="$(arg bag_record)" />
+
+  <!-- Start the head_mimick -->  
+  <node name="head_mimick" pkg="ur_modern_driver" type="head_mimick.py" respawn="false" output="screen" args="$(arg command_args)">
+      <param name="head_traj_mat_file" type="str" value="$(find ur_modern_driver)/data/headTrajSystematic.mat"/>
+      <param name="ask_first" type="bool" value="$(arg ask_first)"/>
+      <param name="use_ctrl_master" type="bool" value="$(arg use_ctrl_master)"/>
+      <param name="ip_ctrl_master" type="str" value="$(arg ip_ctrl_master)"/>
+      <param name="port_ctrl_master" type="int" value="$(arg port_ctrl_master)"/>
+      <param name="num_cases" type="int" value="$(arg num_cases)"/>
+      <param name="speed_scale" type="double" value="$(arg speed_scale)"/>
+      <param name="ang6_offset_deg" type="double" value="$(arg ang6_offset_deg)"/>
+  </node>
+  
+</launch>

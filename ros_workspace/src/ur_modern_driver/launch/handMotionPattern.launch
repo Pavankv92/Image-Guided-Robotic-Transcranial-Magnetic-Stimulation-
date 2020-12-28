@@ -1,0 +1,36 @@
+<launch>
+  <arg name="command_args" default="" />
+  <arg name="bag_record" default="true" />
+  <arg name="ask_first" default="true" />
+  <arg name="use_ctrl_master" default="false" />
+  <arg name="ip_ctrl_master" default="127.0.0.1" />
+  <arg name="port_ctrl_master" default="2525" />
+  <arg name="num_cases" default="1" />
+  <arg name="speed_scale" default="1.0" />
+  <arg name="ang6_offset_deg" default="0" />
+  <arg name="robot_ip" default="134.28.45.57" />
+
+  <!-- ur5_bringup -->
+  <include file="$(find ur_modern_driver)/launch/ur5_bringup.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)"/>
+  </include>
+  
+  <node pkg="kinect2_bridge" type="kinect2_bridge" name="kinect2_bridge" />
+
+  <node pkg="rosbag" type="record" name="rosbag_record_cam"
+       args="-o /data/draeger/ --lz4 --split --duration=240 /ur_rt_tf /tool_velocity /kinect2/sd/image_ir/compressed /kinect2/sd/image_depth/compressed /kinect2/hd/image_color/compressed"
+       if="$(arg bag_record)" />
+
+  <!-- Start the head_mimick -->  
+  <node name="head_mimick" pkg="ur_modern_driver" type="head_mimick.py" respawn="false" output="screen" args="$(arg command_args)">
+      <param name="head_traj_mat_file" type="str" value="$(find ur_modern_driver)/data/handMotionPatterns.mat"/>
+      <param name="ask_first" type="bool" value="$(arg ask_first)"/>
+      <param name="use_ctrl_master" type="bool" value="$(arg use_ctrl_master)"/>
+      <param name="ip_ctrl_master" type="str" value="$(arg ip_ctrl_master)"/>
+      <param name="port_ctrl_master" type="int" value="$(arg port_ctrl_master)"/>
+      <param name="num_cases" type="int" value="$(arg num_cases)"/>
+      <param name="speed_scale" type="double" value="$(arg speed_scale)"/>
+      <param name="ang6_offset_deg" type="double" value="$(arg ang6_offset_deg)"/>
+  </node>
+  
+</launch>

@@ -1,0 +1,7 @@
+<launch>
+
+  <node name="my_node" type="test_move_cpp" pkg="ur_modern_driver">
+    <param name="joint_move_dist" type="double" value="15" />
+    <param name="traj_time" type="double" value="1" />
+  </node>
+</launch>
