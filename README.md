@@ -24,3 +24,6 @@ Note: run everything in the ros workspace (`cd ~/rnmss19/ros_workspace`), start 
 7. start the translation node, **warning: this will make the robot move**
     1. stand near an emergency stop button
     2. `rosrun camera_to_robot_space camera_to_robot_space.py `
+    
+    
+    ![](demo_trim.mp4)
