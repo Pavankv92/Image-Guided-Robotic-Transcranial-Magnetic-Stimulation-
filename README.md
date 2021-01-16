@@ -26,4 +26,4 @@ Note: run everything in the ros workspace (`cd ~/rnmss19/ros_workspace`), start 
     2. `rosrun camera_to_robot_space camera_to_robot_space.py `
     
     
-    ![](./demo_trim.mp4)
+    https://user-images.githubusercontent.com/50611671/104807886-8f19f300-57e2-11eb-9892-e6a3fc5f9fef.mp4
