@@ -3,6 +3,9 @@
 ## Video of the project:
 https://user-images.githubusercontent.com/50611671/104807886-8f19f300-57e2-11eb-9892-e6a3fc5f9fef.mp4
 
+## Gif:
+![Project demo](https://user-images.githubusercontent.com/50611671/104808033-c76e0100-57e3-11eb-953e-51b74e8512db.gif)
+
 ## How to run:
 
 Note: run everything in the ros workspace (`cd ~/rnmss19/ros_workspace`), start each node in a new terminal (window or tab) 
